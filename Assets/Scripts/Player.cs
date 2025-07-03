@@ -42,5 +42,10 @@ public class Player : MonoBehaviour
         velocity.y -= gravity * Time.deltaTime;
         Vector3 finalMove = (direction * speed) + velocity;
         _CC.Move(finalMove * Time.deltaTime);
+
+        Vector3 pos = _tr.position;
+        pos.x = Mathf.Clamp(pos.x, -4f, 4f);
+        pos.z = Mathf.Clamp(pos.z, -8f, 8f);
+        _tr.position = pos;
     }
 }
