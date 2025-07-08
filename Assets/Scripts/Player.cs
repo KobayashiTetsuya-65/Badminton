@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
+    public bool playerMove = true;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = 9.8f;
@@ -15,37 +14,46 @@ public class Player : MonoBehaviour
     {
         _CC = GetComponent<CharacterController>();
         _tr = GetComponent<Transform>();
+        Setup();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(h, 0, v);
-        if (direction.magnitude > 1f)
+        if (playerMove)
         {
-            direction = direction.normalized;
+            float h = Input.GetAxis("Horizontal");
+            float v = Input.GetAxis("Vertical");
+            Vector3 direction = new Vector3(h, 0, v);
+            if (direction.magnitude > 1f)
+            {
+                direction = direction.normalized;
+            }
+
+            //接地判定
+            if (_CC.isGrounded && velocity.y < 0)
+            {
+                velocity.y = -2f;
+            }
+
+            if (Input.GetButtonDown("Jump") && _CC.isGrounded)
+            {
+                velocity.y = Mathf.Sqrt(2f * gravity * jumpHeight);
+            }
+            velocity.y -= gravity * Time.deltaTime;
+            Vector3 finalMove = (direction * speed) + velocity;
+            _CC.Move(finalMove * Time.deltaTime);
+
+            Vector3 pos = _tr.position;
+            pos.x = Mathf.Clamp(pos.x, -4f, 4f);
+            pos.z = Mathf.Clamp(pos.z, -8f, 8f);
+            _tr.position = pos;
         }
-
-        //接地判定
-        if (_CC.isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
-
-        if (Input.GetButtonDown("Jump")&& _CC.isGrounded)
-        {
-
-            velocity.y = Mathf.Sqrt(2f * gravity * jumpHeight);
-        }
-        velocity.y -= gravity * Time.deltaTime;
-        Vector3 finalMove = (direction * speed) + velocity;
-        _CC.Move(finalMove * Time.deltaTime);
-
-        Vector3 pos = _tr.position;
-        pos.x = Mathf.Clamp(pos.x, -4f, 4f);
-        pos.z = Mathf.Clamp(pos.z, -8f, 8f);
-        _tr.position = pos;
+        
+    }
+    public void Setup()
+    {
+        _tr.position = new Vector3(0f, 1f, -5f);
+        Debug.Log("リスタート");
     }
 }

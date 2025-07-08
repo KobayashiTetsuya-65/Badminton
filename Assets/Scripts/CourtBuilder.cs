@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CourtBuilder : MonoBehaviour
@@ -7,7 +5,10 @@ public class CourtBuilder : MonoBehaviour
     [SerializeField] private float scale = 1f;
     [SerializeField] private bool isSingles = true;
     [SerializeField] private Material lineMaterial;
-    private float courtLength = 13.4f;
+    [SerializeField] private Material netMaterial;
+    [SerializeField] private Material courtMaterial;
+    public float courtLength = 13.4f;
+    public float courtWidth = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,25 +18,41 @@ public class CourtBuilder : MonoBehaviour
     void BuildCourt()
     {
         courtLength = courtLength * scale;
-        float courtWidth = (isSingles ? 5.18f : 6.1f) * scale;
+        courtWidth = (isSingles ? 5.18f : 6.1f) * scale;
 
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
         floor.transform.localScale = new Vector3(courtWidth / 10f, 1, courtLength / 10f);
         floor.transform.position = new Vector3(0, 0.001f, 0);
         floor.name = "CourtFloor";
+        floor.tag = "Floor";
+        if (courtMaterial != null)
+        {
+            floor.GetComponent<Renderer>().material = courtMaterial;
+        }
+        Rigidbody rigidbody = floor.AddComponent<Rigidbody>();
+        rigidbody.useGravity = false;
+        rigidbody.isKinematic = true;
 
         GameObject net = GameObject.CreatePrimitive(PrimitiveType.Cube);
         net.transform.localScale = new Vector3(courtWidth, 1.55f, 0.05f);
         net.transform.position = new Vector3(0, 0.775f, 0);
         net.name = "Net";
+        net.tag = "Net";
+        if (netMaterial != null)
+        {
+            net.GetComponent<Renderer>().material = netMaterial;
+        }
+        Rigidbody _rb = net.AddComponent<Rigidbody>();
+        _rb.useGravity = false;
+        _rb.isKinematic = true;
 
         CreateLine(new Vector3(courtWidth / 2f, 0.01f, 0), new Vector3(0.02f, 0.02f, courtLength), "RightLine");
         CreateLine(new Vector3(-courtWidth / 2f, 0.01f, 0), new Vector3(0.02f, 0.02f, courtLength), "LeftLine");
-        CreateLine(new Vector3(0, 0.01f, courtLength / 2f), new Vector3(courtWidth, 0.02f, 0.02f), "BackLine");
-        CreateLine(new Vector3(0, 0.01f, -courtLength / 2f), new Vector3(courtWidth, 0.02f, 0.02f), "FrontLine");
-        CreateLine(new Vector3(0, 0.01f, 0), new Vector3(0.02f, 0.02f, courtLength), "CenterLine");
-        CreateLine(new Vector3(0, 0.01f, 1.98f), new Vector3(courtWidth, 0.02f, 0.02f), "ShortServiceLineFront");
-        CreateLine(new Vector3(0, 0.01f, -1.98f), new Vector3(courtWidth, 0.02f, 0.02f), "ShortServiceLineBack");
+        CreateLine(new Vector3(0, 0.02f, courtLength / 2f), new Vector3(courtWidth, 0.02f, 0.02f), "BackLine");
+        CreateLine(new Vector3(0, 0.02f, -courtLength / 2f), new Vector3(courtWidth, 0.02f, 0.02f), "FrontLine");
+        CreateLine(new Vector3(0, 0.02f, 0), new Vector3(0.02f, 0.02f, courtLength), "CenterLine");
+        CreateLine(new Vector3(0, 0.02f, 1.98f), new Vector3(courtWidth, 0.02f, 0.02f), "ShortServiceLineFront");
+        CreateLine(new Vector3(0, 0.02f, -1.98f), new Vector3(courtWidth, 0.02f, 0.02f), "ShortServiceLineBack");
         if (!isSingles)
         {
             CreateLine(new Vector3(0, 0.01f, -courtLength / 2f + 0.76f), new Vector3(courtWidth, 0.02f, 0.02f), "LongServiceLineBack");

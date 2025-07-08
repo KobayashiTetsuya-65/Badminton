@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shuttle
+  - Racket
+  - Net
+  - Enemy
+  - Floor
   layers:
   - Default
   - TransparentFX
