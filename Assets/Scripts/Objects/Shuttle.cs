@@ -104,16 +104,17 @@ public class Shuttle : MonoBehaviour
             {
                 
                 _marker.Set();
-                _player.Setup();
                 restart = false;
                 first = true;
             }
         }
         else
         {
+            
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 Serve();
+                _player.playerMove = true;
             }
         }
         
@@ -139,6 +140,8 @@ public class Shuttle : MonoBehaviour
     /// </summary>
     private void Serve()
     {
+        _player.Setup();
+        _marker.Set();
         _tr.position = new Vector3(0f, 2f, -4.8f);
         first = false;
     }

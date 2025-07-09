@@ -46,6 +46,8 @@ public class Marker : MonoBehaviour
     }
     public void Set()
     {
-        _tr.position = new Vector3(0f, 0f, 5f);
+        x = 0f;
+        z = 5f;
+        _tr.position = new Vector3(x, 0f, z);
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-    public bool playerMove = true;
+    public bool playerMove = false;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = 9.8f;
@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _CC = GetComponent<CharacterController>();
-        _tr = GetComponent<Transform>();
+        _tr = transform;
         Setup();
     }
 
@@ -53,7 +53,10 @@ public class Player : MonoBehaviour
     }
     public void Setup()
     {
-        _tr.position = new Vector3(0f, 1f, -5f);
+        _CC.enabled = false;
+        _tr.position = new Vector3(0f, 0.5f, -5f);
+        velocity = Vector3.zero;
+        _CC.enabled = true;
         Debug.Log("リスタート");
     }
 }

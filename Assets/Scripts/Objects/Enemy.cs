@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Enemy : MonoBehaviour
 {
+    [SerializeField, Range(0, 2)] public int _Lv;
     [SerializeField] private GameObject marker;
     [SerializeField] private float gravity = 9.8f;
     [SerializeField] private float speed = 3f;
@@ -23,6 +24,18 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        switch (_Lv)
+        {
+            case 0:
+
+            break;
+            case 1:
+
+            break;
+            case 2:
+
+            break;
+        }
         //ê⁄ínîªíË
         if (_CC.isGrounded && velocity.y < 0)
         {
