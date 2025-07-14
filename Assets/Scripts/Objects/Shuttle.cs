@@ -19,6 +19,7 @@ public class Shuttle : MonoBehaviour
     Enemy _enemy;
     Player _player;
     Marker _marker;
+    GameManager _gameManager;
     Transform _tr;
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class Shuttle : MonoBehaviour
         _player = FindObjectOfType<Player>();
         _marker = FindObjectOfType<Marker>();
         _enemy = FindObjectOfType<Enemy>();
+        _gameManager = FindObjectOfType<GameManager>();
         _tr = transform;
         first = true;
     }
@@ -41,12 +43,24 @@ public class Shuttle : MonoBehaviour
             _marker.MarkerSetting = false;
             Debug.Log("ƒqƒbƒgI");
         }
-        if (other.CompareTag("Net") || other.CompareTag("Floor"))
+        if (other.CompareTag("Net"))
+        {
+            velocity = Vector3.zero;
+        }
+        if (other.CompareTag("Floor"))
         {
             hit = false;
             receive = false;
             restart = true;
             velocity = Vector3.zero;
+            if (_tr.position.z > 0)
+            {
+                _gameManager.GetPoint();
+            }
+            else
+            {
+                _gameManager.LostPoint();
+            }
         }
         if (other.CompareTag("Enemy"))
         {
