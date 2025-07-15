@@ -35,7 +35,7 @@ public class Shuttle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Racket") && !first)
+        if (other.CompareTag("Racket") && !first && !drop)
         {
             hit = true;
             receive = false;
@@ -46,8 +46,10 @@ public class Shuttle : MonoBehaviour
         if (other.CompareTag("Net"))
         {
             velocity = Vector3.zero;
+            hit = false;
+            receive = false;
         }
-        if (other.CompareTag("Floor"))
+        if ((other.CompareTag("Floor") || other.CompareTag("Out")) && !restart)
         {
             hit = false;
             receive = false;
@@ -71,13 +73,13 @@ public class Shuttle : MonoBehaviour
             _marker.MarkerSetting = true;
             Debug.Log("”½Œ‚");
         }
-        if (other.CompareTag("Out"))
-        {
-            hit = false;
-            receive = false;
-            restart = true;
-            velocity = Vector3.zero;
-        }
+        //if (other.CompareTag("Out"))
+        //{
+        //    hit = false;
+        //    receive = false;
+        //    restart = true;
+        //    velocity = Vector3.zero;
+        //}
     }
 
    // Update is called once per frame
@@ -124,7 +126,6 @@ public class Shuttle : MonoBehaviour
         }
         else
         {
-            
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 Serve();
