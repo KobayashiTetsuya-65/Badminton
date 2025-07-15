@@ -49,12 +49,13 @@ public class Shuttle : MonoBehaviour
             hit = false;
             receive = false;
         }
-        if ((other.CompareTag("Floor") || other.CompareTag("Out")) && !restart)
+        if (other.CompareTag("Floor") && !restart)
         {
             hit = false;
             receive = false;
             restart = true;
             velocity = Vector3.zero;
+            Debug.Log("IN");
             if (_tr.position.z > 0)
             {
                 _gameManager.GetPoint();
@@ -73,13 +74,22 @@ public class Shuttle : MonoBehaviour
             _marker.MarkerSetting = true;
             Debug.Log("反撃");
         }
-        //if (other.CompareTag("Out"))
-        //{
-        //    hit = false;
-        //    receive = false;
-        //    restart = true;
-        //    velocity = Vector3.zero;
-        //}
+        if (other.CompareTag("Out") && !restart)
+        {
+            hit = false;
+            receive = false;
+            restart = true;
+            velocity = Vector3.zero;
+            Debug.Log("OUT");
+            if (_tr.position.z > 0)
+            {
+                _gameManager.LostPoint();
+            }
+            else
+            {
+                _gameManager.GetPoint();
+            }
+        }
     }
 
    // Update is called once per frame
@@ -96,7 +106,7 @@ public class Shuttle : MonoBehaviour
             }
             velocity.y -= gravity * Time.deltaTime;
             _tr.position += new Vector3(0f, velocity.y * Time.deltaTime, 0f);
-            if (_tr.position.y <= 0.03f)//シャトルの接地判定
+            if (_tr.position.y <= 0.025f)//シャトルの接地判定
             {
                 _tr.position = new Vector3(_tr.position.x, 0f, _tr.position.z);
                 velocity.y = 0f;
@@ -106,19 +116,12 @@ public class Shuttle : MonoBehaviour
             {
                 drop = false;
             }
-            if (hit && drop)//敵の所に落ちた時
-            {
-                hit = false;
-                drop = false;
-                receive = true;
-            }
             if (receive)//相手に打ち返される
             {
                 Receive();
             }
             if (!hit && !receive && drop && restart)//リスタート
             {
-                
                 _marker.Set();
                 restart = false;
                 first = true;

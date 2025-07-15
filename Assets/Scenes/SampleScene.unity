@@ -3434,9 +3434,12 @@ MonoBehaviour:
   enemyobj: {fileID: 2016011506}
   pointTextP: {fileID: 1042144983}
   pointTextE: {fileID: 2122915557}
+  setpointTextP: {fileID: 1501902213}
+  setpointTextE: {fileID: 266306619}
   winText: {fileID: 954783050}
   loseText: {fileID: 2039606641}
-  maxPoint: 7
+  maxPoint: 2
+  maxSetPoint: 2
 --- !u!4 &2012020676
 Transform:
   m_ObjectHideFlags: 0

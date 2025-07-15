@@ -22,7 +22,7 @@ public class CourtBuilder : MonoBehaviour
 
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
         floor.transform.localScale = new Vector3(courtWidth / 10f, 1, courtLength / 10f);
-        floor.transform.position = new Vector3(0, 0.001f, 0);
+        floor.transform.position = new Vector3(0, 0.02f, 0);
         floor.name = "CourtFloor";
         floor.tag = "Floor";
         if (courtMaterial != null)
