@@ -2887,7 +2887,7 @@ GameObject:
   - component: {fileID: 1334731658}
   - component: {fileID: 1334731657}
   - component: {fileID: 1334731661}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Out
   m_Icon: {fileID: 0}
@@ -3438,7 +3438,7 @@ MonoBehaviour:
   setpointTextE: {fileID: 266306619}
   winText: {fileID: 954783050}
   loseText: {fileID: 2039606641}
-  maxPoint: 2
+  maxPoint: 7
   maxSetPoint: 2
 --- !u!4 &2012020676
 Transform:

@@ -49,20 +49,34 @@ public class Shuttle : MonoBehaviour
             hit = false;
             receive = false;
         }
-        if (other.CompareTag("Floor") && !restart)
+        if ((other.CompareTag("Out") || other.CompareTag("Floor")) && !restart)
         {
-            hit = false;
-            receive = false;
-            restart = true;
-            velocity = Vector3.zero;
-            Debug.Log("IN");
-            if (_tr.position.z > 0)
+            if(other.gameObject.layer == 7)//OUT
             {
-                _gameManager.GetPoint();
+                Collider[] hits = Physics.OverlapSphere(_tr.position, 0.01f);
+                bool hasLayer8 = false;
+                foreach(var hitcol in hits)
+                {
+                    if (hitcol == other) continue;
+                    Debug.Log(hitcol.name + " / Layer: " + hitcol.gameObject.layer);
+                    if (hitcol.gameObject.layer == 8)
+                    {
+                        hasLayer8 = true;
+                        break;
+                    }
+                }
+                if (hasLayer8)
+                {
+                    HitLayer();
+                }
+                else
+                {
+                    OutLayer();
+                }
             }
-            else
+            else if(other.gameObject.layer == 8)//IN
             {
-                _gameManager.LostPoint();
+                HitLayer();
             }
         }
         if (other.CompareTag("Enemy"))
@@ -73,22 +87,6 @@ public class Shuttle : MonoBehaviour
             _enemy.ChaseMode = false;
             _marker.MarkerSetting = true;
             Debug.Log("”½Œ‚");
-        }
-        if (other.CompareTag("Out") && !restart)
-        {
-            hit = false;
-            receive = false;
-            restart = true;
-            velocity = Vector3.zero;
-            Debug.Log("OUT");
-            if (_tr.position.z > 0)
-            {
-                _gameManager.LostPoint();
-            }
-            else
-            {
-                _gameManager.GetPoint();
-            }
         }
     }
 
@@ -162,5 +160,47 @@ public class Shuttle : MonoBehaviour
         _marker.Set();
         _tr.position = new Vector3(0f, 2f, -4.8f);
         first = false;
+    }
+    /// <summary>
+    /// bool‚Ì‰Šú‰»•“®‚«~‚ß‚é
+    /// </summary>
+    private void ResetState()
+    {
+        hit = false;
+        receive = false;
+        restart = true;
+        velocity = Vector3.zero;
+    }
+    /// <summary>
+    /// IN‚Ìˆ—
+    /// </summary>
+    private void HitLayer()
+    {
+        if (_tr.position.z > 0)
+        {
+            _gameManager.GetPoint();
+        }
+        else
+        {
+            _gameManager.LostPoint();
+        }
+        Debug.Log("IN");
+        ResetState();
+    }
+    /// <summary>
+    /// OUT‚Ìˆ—
+    /// </summary>
+    private void OutLayer()
+    {
+        if (_tr.position.z > 0)
+        {
+            _gameManager.LostPoint();
+        }
+        else
+        {
+            _gameManager.GetPoint();
+        }
+        Debug.Log("OUT");
+        ResetState();
     }
 }

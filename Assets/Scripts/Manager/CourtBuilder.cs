@@ -20,11 +20,12 @@ public class CourtBuilder : MonoBehaviour
         courtLength = courtLength * scale;
         courtWidth = (isSingles ? 5.18f : 6.1f) * scale;
 
-        GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        floor.transform.localScale = new Vector3(courtWidth / 10f, 1, courtLength / 10f);
-        floor.transform.position = new Vector3(0, 0.02f, 0);
+        GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        floor.transform.localScale = new Vector3(courtWidth, 1f, courtLength);
+        floor.transform.position = new Vector3(0, -0.485f, 0);
         floor.name = "CourtFloor";
         floor.tag = "Floor";
+        floor.layer = 8;
         if (courtMaterial != null)
         {
             floor.GetComponent<Renderer>().material = courtMaterial;
