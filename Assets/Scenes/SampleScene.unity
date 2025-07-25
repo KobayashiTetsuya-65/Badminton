@@ -173,6 +173,7 @@ MonoBehaviour:
   courtMaterial: {fileID: 2100000, guid: d128b4b22b3566a4397fd1c5ce9e2151, type: 2}
   courtLength: 13.4
   courtWidth: 0
+  floor: {fileID: 0}
 --- !u!1 &136720014
 GameObject:
   m_ObjectHideFlags: 0
@@ -2888,7 +2889,7 @@ GameObject:
   - component: {fileID: 1334731657}
   - component: {fileID: 1334731661}
   m_Layer: 7
-  m_Name: Cube
+  m_Name: OutFloor
   m_TagString: Out
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3109,7 +3110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368252386}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -3159,6 +3160,7 @@ MonoBehaviour:
   speed: 5
   jumpHeight: 1
   gravity: 9.8
+  jumping: 0
 --- !u!1 &1433073040
 GameObject:
   m_ObjectHideFlags: 0
@@ -4041,7 +4043,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 1368252391}
   - {fileID: 1334731660}
   - {fileID: 92465200}
   - {fileID: 1042751585}
@@ -4050,3 +4051,4 @@ SceneRoots:
   - {fileID: 2016011510}
   - {fileID: 1433073044}
   - {fileID: 1292702173}
+  - {fileID: 1368252391}

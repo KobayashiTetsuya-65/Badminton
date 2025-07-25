@@ -7,6 +7,8 @@ public class Shuttle : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float gravity = 9.8f;
     [SerializeField] public float maxHeight;
+    private float normalheight;
+    private bool _setheight = false;
     private bool first = true;
     private bool randomset = false;
     private bool restart = false;
@@ -31,6 +33,7 @@ public class Shuttle : MonoBehaviour
         _gameManager = FindObjectOfType<GameManager>();
         _tr = transform;
         first = true;
+        normalheight = maxHeight;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,19 +56,11 @@ public class Shuttle : MonoBehaviour
         {
             if(other.gameObject.layer == 7)//OUT
             {
-                Collider[] hits = Physics.OverlapSphere(_tr.position, 0.01f);
-                bool hasLayer8 = false;
-                foreach(var hitcol in hits)
-                {
-                    if (hitcol == other) continue;
-                    Debug.Log(hitcol.name + " / Layer: " + hitcol.gameObject.layer);
-                    if (hitcol.gameObject.layer == 8)
-                    {
-                        hasLayer8 = true;
-                        break;
-                    }
-                }
-                if (hasLayer8)
+                Collider targetCol = builder.floor.gameObject.GetComponent<Collider>();
+                Bounds b = targetCol.bounds;
+                bool IN =(_tr.position.x >= b.min.x && _tr.position.x <= b.max.x)&&
+                    ( _tr.position.z >= b.min.z && _tr.position.z <= b.max.z);
+                if (IN)
                 {
                     HitLayer();
                 }
@@ -97,6 +92,10 @@ public class Shuttle : MonoBehaviour
         {
             if (hit)//打ち返す
             {
+                if (_player.jumping && !_setheight)
+                {
+                    HeightReset(2f);//スマッシュ
+                }
                 randomset = false;
                 Vector3 direction = (mark.transform.position - _tr.position).normalized;
                 _tr.position += direction * speed * Time.deltaTime;
@@ -146,7 +145,9 @@ public class Shuttle : MonoBehaviour
             float z = Random.Range(-builder.courtLength/2f -0.5f, 0.5f);
             randomPos = new Vector3(x, 0f, z);
             randomset = true;
-        }              
+        }
+        maxHeight = normalheight;
+        _setheight = false;
         Vector3 direction = (randomPos - _tr.position).normalized;
         _tr.position += direction * speed * Time.deltaTime;
         velocity.y = Mathf.Sqrt(2f * gravity * maxHeight);
@@ -202,5 +203,10 @@ public class Shuttle : MonoBehaviour
         }
         Debug.Log("OUT");
         ResetState();
+    }
+    private void HeightReset(float Height)
+    {
+        maxHeight = Height;
+        _setheight = true;
     }
 }

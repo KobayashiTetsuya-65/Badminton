@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private CharacterController _CC;
     private Transform _tr;
     private Vector3 velocity;
+    public bool jumping = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,11 +35,13 @@ public class Player : MonoBehaviour
             if (_CC.isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
+                jumping = false;
             }
 
             if (Input.GetButtonDown("Jump") && _CC.isGrounded)
             {
                 velocity.y = Mathf.Sqrt(2f * gravity * jumpHeight);
+                jumping = true;
             }
             velocity.y -= gravity * Time.deltaTime;
             Vector3 finalMove = (direction * speed) + velocity;

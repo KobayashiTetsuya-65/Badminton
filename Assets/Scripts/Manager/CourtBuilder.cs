@@ -9,6 +9,7 @@ public class CourtBuilder : MonoBehaviour
     [SerializeField] private Material courtMaterial;
     public float courtLength = 13.4f;
     public float courtWidth = 0;
+    public GameObject floor;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,7 @@ public class CourtBuilder : MonoBehaviour
         courtLength = courtLength * scale;
         courtWidth = (isSingles ? 5.18f : 6.1f) * scale;
 
-        GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
         floor.transform.localScale = new Vector3(courtWidth, 1f, courtLength);
         floor.transform.position = new Vector3(0, -0.485f, 0);
         floor.name = "CourtFloor";
