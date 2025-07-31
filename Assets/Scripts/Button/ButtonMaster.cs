@@ -64,6 +64,7 @@ public class ButtonMaster : MonoBehaviour
             rect.anchoredPosition = Vector2.Lerp(start, targetPos, t);
             yield return null;
         }
+
         rect.anchoredPosition = targetPos;
         change = false;
     }
