@@ -94,7 +94,7 @@ public class Shuttle : MonoBehaviour
             {
                 if (_player.jumping && !_setheight)
                 {
-                    HeightReset(2f);//スマッシュ
+                    HeightReset(1.5f);//スマッシュ
                 }
                 randomset = false;
                 Vector3 direction = (mark.transform.position - _tr.position).normalized;
@@ -103,7 +103,7 @@ public class Shuttle : MonoBehaviour
             }
             velocity.y -= gravity * Time.deltaTime;
             _tr.position += new Vector3(0f, velocity.y * Time.deltaTime, 0f);
-            if (_tr.position.y <= 0.025f)//シャトルの接地判定
+            if (_tr.position.y <= 0.010f)//シャトルの接地判定
             {
                 _tr.position = new Vector3(_tr.position.x, 0f, _tr.position.z);
                 velocity.y = 0f;
@@ -122,6 +122,11 @@ public class Shuttle : MonoBehaviour
                 _marker.Set();
                 restart = false;
                 first = true;
+            }
+            if (drop)
+            {
+                hit = false;
+                receive = false;
             }
         }
         else

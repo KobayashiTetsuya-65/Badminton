@@ -74,6 +74,9 @@ public class GameManager : MonoBehaviour
             PointUPdate();
         }
     }
+    /// <summary>
+    /// ポイントテキスト更新
+    /// </summary>
     private void PointUPdate()
     {
         pointTextP.text = pointP.ToString();
@@ -81,7 +84,10 @@ public class GameManager : MonoBehaviour
         setpointTextP.text = setPP.ToString();
         setpointTextE.text = setPE.ToString();
     }
-    public void GetPoint()//ポイント取得時に呼び出される
+    /// <summary>
+    /// ポイント取得
+    /// </summary>
+    public void GetPoint()
     {
         pointP++;
         if (pointP >= maxPoint)
@@ -92,12 +98,17 @@ public class GameManager : MonoBehaviour
             if (setPP >= maxSetPoint)
             {
                 winText.SetActive(true);
+                winText.transform.DOPunchPosition(new Vector3(0,70,0),1f); 
+                winText.transform.DOPunchScale(new Vector3(1.2f,1.2f,1.2f),1f);
                 reset = true;
             }
         }
         PointUPdate();
     }
-    public void LostPoint()//ポイント取られた時呼ばれる
+    /// <summary>
+    /// ポイント取られた
+    /// </summary>
+    public void LostPoint()
     {
         pointE++;
         if (pointE >= maxPoint)
@@ -108,6 +119,8 @@ public class GameManager : MonoBehaviour
             if (setPE >= maxSetPoint)
             {
                 loseText.SetActive(true);
+                loseText.transform.DOPunchPosition(new Vector3(0, 70, 0), 1f);
+                loseText.transform.DOPunchScale(new Vector3(1.2f, 1.2f, 1.2f), 1f);
                 reset = true;
             }
         }
