@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class ButtonScene : MonoBehaviour
 {
@@ -12,10 +13,12 @@ public class ButtonScene : MonoBehaviour
     private bool push = false;
     private float alpha;
     private bool increase;
+    private Transform _tr;
     // Start is called before the first frame update
     void Start()
     {
         this.GetComponent<Button>().onClick.AddListener(osu);
+        _tr = GetComponent<Transform>();
         push = false;
         Fadeset(0);
         Debug.Log("a");
@@ -50,6 +53,7 @@ public class ButtonScene : MonoBehaviour
     void osu()
     {
         push = true;
+        _tr.DOShakeScale(1f,0.8f);
         Debug.Log("‰Ÿ‚³‚ê‚½");
     }
     // Update is called once per frame

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 /// <summary>
 /// 敵の弾の落下地点&得点管理
 /// </summary>
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI setpointTextE;
     [SerializeField] private GameObject winText;
     [SerializeField] private GameObject loseText;
+    [SerializeField] private Image _panelImage;
     [Header("ポイント設定"), SerializeField, Range(1, 21)]
     private int maxPoint;
     [Header("セットカウント設定"), SerializeField, Range(1, 3)]
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     private int setPE = 0;
     private GameObject currentMaker;
     Shuttle shuttle;
-    Enemy enemy;
+    //Enemy enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
         PointUPdate();
         winText.SetActive(false);
         loseText.SetActive(false);
+        _panelImage.DOFade(0f, 1f);
     }
 
     // Update is called once per frame
