@@ -1,4 +1,9 @@
+using System.ComponentModel;
 using UnityEngine;
+public enum CharactorAnimationState
+{
+    Idle,Walk,Jump,Attack,Damage
+}
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
@@ -10,6 +15,10 @@ public class Player : MonoBehaviour
     private Transform _tr;
     private Vector3 velocity;
     public bool jumping = false;
+    [Header("プレイヤーの設定")]
+    [SerializeField] private GameObject _slimeBody;
+    [SerializeField] private CharactorAnimationState _currentState;
+    [SerializeField] private Animator _animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +35,21 @@ public class Player : MonoBehaviour
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
             Vector3 direction = new Vector3(h, 0, v);
+            if(h != 0 ||  v != 0)
+            {
+                _currentState = CharactorAnimationState.Walk;
+                _animator.SetBool("isWalking",true);
+            }
+            else
+            {
+                _currentState = CharactorAnimationState.Idle;
+                _animator.SetBool("isWalking",false);
+            }
             if (direction.magnitude > 1f)
             {
                 direction = direction.normalized;
             }
-
+            Debug.Log(_currentState);
             //接地判定
             if (_CC.isGrounded && velocity.y < 0)
             {
@@ -38,14 +57,25 @@ public class Player : MonoBehaviour
                 jumping = false;
             }
 
-            if (Input.GetButtonDown("Jump") && _CC.isGrounded)
+            if (Input.GetButtonDown("Jump") && !jumping)
             {
+                _currentState = CharactorAnimationState.Jump;
                 velocity.y = Mathf.Sqrt(2f * gravity * jumpHeight);
                 jumping = true;
+            }
+            if (jumping)
+            {
+                _animator.SetBool("isWalking", false);
             }
             velocity.y -= gravity * Time.deltaTime;
             Vector3 finalMove = (direction * speed) + velocity;
             _CC.Move(finalMove * Time.deltaTime);
+            //向きの制御
+            if (direction.magnitude > 0f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                _tr.rotation = Quaternion.Slerp(_tr.rotation, targetRotation, Time.deltaTime * 10f);
+            }
 
             Vector3 pos = _tr.position;
             pos.x = Mathf.Clamp(pos.x, -4f, 4f);
@@ -61,5 +91,9 @@ public class Player : MonoBehaviour
         velocity = Vector3.zero;
         _CC.enabled = true;
         Debug.Log("リスタート");
+    }
+    private void AlertObservers(string message)
+    {
+        Debug.Log(message);
     }
 }
