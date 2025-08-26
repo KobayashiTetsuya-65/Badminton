@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using UnityEditor.VersionControl;
 using UnityEngine;
 public enum CharactorAnimationState
 {
@@ -35,15 +36,15 @@ public class Player : MonoBehaviour
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
             Vector3 direction = new Vector3(h, 0, v);
-            if(h != 0 ||  v != 0)
+            if((h != 0 ||  v != 0) && !jumping)
             {
                 _currentState = CharactorAnimationState.Walk;
-                _animator.SetBool("isWalking",true);
+                _animator.SetFloat("Speed", 1f);
             }
             else
             {
                 _currentState = CharactorAnimationState.Idle;
-                _animator.SetBool("isWalking",false);
+                _animator.SetFloat("Speed", 0f);
             }
             if (direction.magnitude > 1f)
             {
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
             }
             if (jumping)
             {
-                _animator.SetBool("isWalking", false);
+
             }
             velocity.y -= gravity * Time.deltaTime;
             Vector3 finalMove = (direction * speed) + velocity;
@@ -77,6 +78,7 @@ public class Player : MonoBehaviour
                 _tr.rotation = Quaternion.Slerp(_tr.rotation, targetRotation, Time.deltaTime * 10f);
             }
 
+            _animator.SetBool("isJumping", jumping);
             Vector3 pos = _tr.position;
             pos.x = Mathf.Clamp(pos.x, -4f, 4f);
             pos.z = Mathf.Clamp(pos.z, -8f, 8f);
@@ -92,8 +94,13 @@ public class Player : MonoBehaviour
         _CC.enabled = true;
         Debug.Log("リスタート");
     }
+    private void OnAnimatorMove()
+    {
+        Debug.Log("a");
+    }
     private void AlertObservers(string message)
     {
-        Debug.Log(message);
+        Debug.Log($"AnimationEvent: {message}");
+        // 必要ならここで処理を書く
     }
 }
