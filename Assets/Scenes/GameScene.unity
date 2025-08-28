@@ -1186,8 +1186,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Lv: 0
   _marker: {fileID: 857861891}
+  _player: {fileID: 1468284395}
   _gravity: 9.8
   _speed: 3
+  _animator: {fileID: 631390156}
   _successRate1: 75
   _successRate2: 85
   _successRate3: 95
@@ -1232,9 +1234,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631390151}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 707b944f06051734793367fc0c69bc07, type: 2}
+  m_Controller: {fileID: 9100000, guid: a4a27364a5437544c81d65a9ee9a3b8a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
