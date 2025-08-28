@@ -209,6 +209,10 @@ public class Shuttle : MonoBehaviour
         Debug.Log("OUT");
         ResetState();
     }
+    /// <summary>
+    /// ƒVƒƒƒgƒ‹‚Ì‚‚³’²®
+    /// </summary>
+    /// <param name="Height"></param>
     private void HeightReset(float Height)
     {
         maxHeight = Height;

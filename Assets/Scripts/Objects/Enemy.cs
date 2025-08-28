@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
     [Header("Lv.3"), SerializeField] private float _successRate3 = 90f;
     private float _successRate;
     private float _randomRate;
+    private float _maxRate = 100;
     public bool _success;
     public bool ChaseMode = false;
     private Vector3 _Pos;
@@ -40,10 +42,7 @@ public class Enemy : MonoBehaviour
         }
         _velocity.y -= _gravity * Time.deltaTime;
         if (ChaseMode)
-        {
-            ProbabilityCalculation();
-            _Pos.x = _marker.transform.position.x;
-            _Pos.z = _marker.transform.position.z;
+        {   
             _velocity.x = (_Pos.x - _tr.position.x) * _speed;
             _velocity.z = (_Pos.z - _tr.position.z) * _speed;
         }
@@ -61,7 +60,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void ProbabilityCalculation()
     {
-        _randomRate = Random.Range(0, 100);
+        _maxRate = 100;
         switch (_Lv)
         {
             case 0:
@@ -74,6 +73,25 @@ public class Enemy : MonoBehaviour
                 _successRate = _successRate3;
                 break;
         }
+        _Pos.x = _marker.transform.position.x;
+        _Pos.z = _marker.transform.position.z;
+        switch(Mathf.Sqrt((Math.Abs(_Pos.x - _tr.position.x)* Math.Abs(_Pos.x - _tr.position.x))+
+            (Math.Abs(_Pos.z - _tr.position.z) * Math.Abs(_Pos.z - _tr.position.z))))
+        {
+            case < 0.5f:
+                _maxRate = 1;
+                break;
+            case < 2:
+                _maxRate = _successRate2;
+                break;
+            case < 5:
+                _maxRate = 100;
+                    break;
+            case < 100:
+                _maxRate = 500;
+                break;
+        }
+        _randomRate = UnityEngine.Random.Range(0, _maxRate);
         if (_randomRate <= _successRate)
         {
             ChaseMode = true;
