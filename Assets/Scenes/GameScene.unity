@@ -3692,9 +3692,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Lv: 0
-  marker: {fileID: 857861891}
-  gravity: 9.8
-  speed: 3
+  _marker: {fileID: 857861891}
+  _gravity: 9.8
+  _speed: 3
+  _successRate1: 75
+  _successRate2: 80
+  _successRate3: 98
+  _success: 0
   ChaseMode: 1
 --- !u!1 &2026650302
 GameObject:

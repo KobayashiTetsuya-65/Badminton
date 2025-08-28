@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     {
         _CC = GetComponent<CharacterController>();
         _tr = transform;
+        _currentState = CharactorAnimationState.Idle;
         Setup();
     }
 
@@ -50,7 +51,7 @@ public class Player : MonoBehaviour
             {
                 direction = direction.normalized;
             }
-            Debug.Log(_currentState);
+            
             //ê⁄ínîªíË
             if (_CC.isGrounded && velocity.y < 0)
             {
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
             pos.z = Mathf.Clamp(pos.z, -8f, 8f);
             _tr.position = pos;
         }
-        
+        Debug.Log(_currentState);
     }
     public void Setup()
     {
@@ -96,7 +97,7 @@ public class Player : MonoBehaviour
     }
     private void OnAnimatorMove()
     {
-        Debug.Log("a");
+
     }
     private void AlertObservers(string message)
     {

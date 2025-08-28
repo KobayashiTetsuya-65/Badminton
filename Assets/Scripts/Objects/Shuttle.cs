@@ -42,7 +42,7 @@ public class Shuttle : MonoBehaviour
         {
             hit = true;
             receive = false;
-            _enemy.ChaseMode = true;
+            _enemy.ProbabilityCalculation();
             _marker.MarkerSetting = false;
             Debug.Log("ƒqƒbƒgI");
         }

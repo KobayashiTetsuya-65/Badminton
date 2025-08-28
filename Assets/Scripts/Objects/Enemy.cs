@@ -5,12 +5,19 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField, Range(0, 2)] public int _Lv;
-    [SerializeField] private GameObject marker;
-    [SerializeField] private float gravity = 9.8f;
-    [SerializeField] private float speed = 3f;
-    public bool ChaseMode = true;
-    private Vector3 Pos;
-    private Vector3 velocity;
+    [SerializeField] private GameObject _marker;
+    [SerializeField] private float _gravity = 9.8f;
+    [SerializeField] private float _speed = 3f;
+    [Header("返球率")]
+    [Header("Lv.1"), SerializeField] private float _successRate1 = 50f;
+    [Header("Lv.2"), SerializeField] private float _successRate2 = 70f;
+    [Header("Lv.3"), SerializeField] private float _successRate3 = 90f;
+    private float _successRate;
+    private float _randomRate;
+    public bool _success;
+    public bool ChaseMode = false;
+    private Vector3 _Pos;
+    private Vector3 _velocity;
     private CharacterController _CC;
     private Transform _tr;
     // Start is called before the first frame update
@@ -19,43 +26,57 @@ public class Enemy : MonoBehaviour
         _CC = GetComponent<CharacterController>();
         _tr = GetComponent<Transform>();
         _tr.position = new Vector3(0f, 1f, 5f);
+        ChaseMode = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (_Lv)
-        {
-            case 0:
 
-            break;
-            case 1:
-
-            break;
-            case 2:
-
-            break;
-        }
         //接地判定
-        if (_CC.isGrounded && velocity.y < 0)
+        if (_CC.isGrounded && _velocity.y < 0)
         {
-            velocity.y = -2f;
+            _velocity.y = -2f;
         }
-        velocity.y -= gravity * Time.deltaTime;
+        _velocity.y -= _gravity * Time.deltaTime;
         if (ChaseMode)
         {
-            Pos.x = marker.transform.position.x;
-            Pos.z = marker.transform.position.z;
-            velocity.x = (Pos.x - _tr.position.x) * speed;
-            velocity.z = (Pos.z - _tr.position.z) * speed;
+            ProbabilityCalculation();
+            _Pos.x = _marker.transform.position.x;
+            _Pos.z = _marker.transform.position.z;
+            _velocity.x = (_Pos.x - _tr.position.x) * _speed;
+            _velocity.z = (_Pos.z - _tr.position.z) * _speed;
         }
         else
         {
-            velocity.x = (0f - _tr.position.x) * speed/2f;
-            velocity.z = (5f - _tr.position.z) * speed/2f;
+            _velocity.x = (0f - _tr.position.x) * _speed /2f;
+            _velocity.z = (5f - _tr.position.z) * _speed /2f;
         }
-        Vector3 finalMove = velocity;
+        Vector3 finalMove = _velocity;
         _CC.Move(finalMove * Time.deltaTime);
         
+    }
+    /// <summary>
+    /// エネミーの返球率の確率演算
+    /// </summary>
+    public void ProbabilityCalculation()
+    {
+        _randomRate = Random.Range(0, 100);
+        switch (_Lv)
+        {
+            case 0:
+                _successRate = _successRate1;
+                break;
+            case 1:
+                _successRate = _successRate2;
+                break;
+            case 2:
+                _successRate = _successRate3;
+                break;
+        }
+        if (_randomRate <= _successRate)
+        {
+            ChaseMode = true;
+        }
     }
 }
