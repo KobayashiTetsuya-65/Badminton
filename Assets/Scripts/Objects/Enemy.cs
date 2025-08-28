@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     public bool ChaseMode = false;
     private Vector3 _Pos;
     private Vector3 _velocity;
+    private Vector3 _move;
     private CharacterController _CC;
     private Transform _tr;
     // Start is called before the first frame update
@@ -34,7 +35,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        _move = Vector3.zero;
         //接地判定
         if (_CC.isGrounded && _velocity.y < 0)
         {
@@ -42,16 +43,38 @@ public class Enemy : MonoBehaviour
         }
         _velocity.y -= _gravity * Time.deltaTime;
         if (ChaseMode)
-        {   
-            _velocity.x = (_Pos.x - _tr.position.x) * _speed;
-            _velocity.z = (_Pos.z - _tr.position.z) * _speed;
+        {
+            Vector3 targetPos = new Vector3(_Pos.x, 0, _Pos.z);
+            Vector3 currentPos = new Vector3(_tr.position.x, 0, _tr.position.z);
+
+            float distance = Vector3.Distance(currentPos, targetPos);
+
+            if (distance > 0.03f) // 0.1m以上離れてたら移動
+            {
+                _move = (targetPos - currentPos).normalized * _speed;
+            }
+            else
+            {
+                _move = Vector3.zero; // 到着したら停止
+            }
         }
         else
         {
-            _velocity.x = (0f - _tr.position.x) * _speed /2f;
-            _velocity.z = (5f - _tr.position.z) * _speed /2f;
+            Vector3 targetPos = new Vector3(0f, 0, 5f); // 初期位置
+            Vector3 currentPos = new Vector3(_tr.position.x, 0, _tr.position.z);
+
+            float distance = Vector3.Distance(currentPos, targetPos);
+
+            if (distance > 0.03f) // 近くなったら止める
+            {
+                _move = (targetPos - currentPos).normalized * _speed / 2f;
+            }
+            else
+            {
+                _move = Vector3.zero;
+            }
         }
-        Vector3 finalMove = _velocity;
+        Vector3 finalMove = _move + new Vector3(0, _velocity.y ,0);
         _CC.Move(finalMove * Time.deltaTime);
         
     }
@@ -61,7 +84,7 @@ public class Enemy : MonoBehaviour
     public void ProbabilityCalculation()
     {
         _maxRate = 100;
-        switch (_Lv)
+        switch (_Lv)//レベル変更
         {
             case 0:
                 _successRate = _successRate1;
@@ -75,7 +98,8 @@ public class Enemy : MonoBehaviour
         }
         _Pos.x = _marker.transform.position.x;
         _Pos.z = _marker.transform.position.z;
-        switch(Mathf.Sqrt((Math.Abs(_Pos.x - _tr.position.x)* Math.Abs(_Pos.x - _tr.position.x))+
+        //距離に応じて確率変更
+        switch (Mathf.Sqrt((Math.Abs(_Pos.x - _tr.position.x)* Math.Abs(_Pos.x - _tr.position.x))+
             (Math.Abs(_Pos.z - _tr.position.z) * Math.Abs(_Pos.z - _tr.position.z))))
         {
             case < 0.5f:
