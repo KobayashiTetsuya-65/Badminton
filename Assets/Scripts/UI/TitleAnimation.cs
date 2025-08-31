@@ -7,6 +7,10 @@ public class TitleAnimation : MonoBehaviour
     private GameObject _anker;
     [SerializeField]
     private GameObject _shutle;
+    [SerializeField]
+    private AudioSource _AS;
+    [SerializeField]
+    private AudioClip _AC;
     private Vector3 _startPos;
     private Vector3 _prevPos;
     private float _random;
@@ -46,6 +50,7 @@ public class TitleAnimation : MonoBehaviour
         .SetEase(Ease.Linear)
         .OnComplete(() =>
         {
+            _AS.PlayOneShot(_AC);
             _tr.DOPunchScale(new Vector3(1, -1, 0), 1f);
             _shutle.transform.position = _startPos;
             _shutle.transform.rotation = Quaternion.identity;
