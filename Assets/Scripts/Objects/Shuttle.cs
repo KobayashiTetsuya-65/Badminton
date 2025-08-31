@@ -9,6 +9,8 @@ public class Shuttle : MonoBehaviour
     [SerializeField] public float maxHeight;
     [SerializeField] private AudioSource _ASHit;
     [SerializeField] private AudioClip _ACHit;
+    [SerializeField] private AudioSource _ASServe;
+    [SerializeField] private AudioClip _ACServe;
     private float normalheight;
     private bool _setheight = false;
     private bool first = true;
@@ -166,6 +168,7 @@ public class Shuttle : MonoBehaviour
     /// </summary>
     private void Serve()
     {
+        _ASServe.PlayOneShot(_ACServe);
         _player.Setup();
         _marker.Set();
         _tr.position = new Vector3(0f, 2f, -4.8f);

@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip _ACGetPoint;
     [SerializeField] private AudioSource _ASLostPoint;
     [SerializeField] private AudioClip _ACLostPoint;
+    [SerializeField] private AudioSource _ASFinish;
+    [SerializeField] private AudioClip _ACFinish;
     private bool reset = false;
     private bool markOnScene = false;
     private int pointP = 0;
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour
         pointP++;
         if (pointP >= maxPoint)
         {
+            _ASFinish.PlayOneShot(_ACFinish);
             setPP++;
             pointP = 0;
             pointE = 0;
@@ -120,6 +123,7 @@ public class GameManager : MonoBehaviour
         pointE++;
         if (pointE >= maxPoint)
         {
+            _ASFinish.PlayOneShot(_ACFinish);
             setPE++;
             pointP = 0;
             pointE = 0;
