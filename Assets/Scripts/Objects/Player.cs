@@ -1,5 +1,3 @@
-using System.ComponentModel;
-//using UnityEditor.VersionControl;
 using UnityEngine;
 public enum CharactorAnimationState
 {
