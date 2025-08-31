@@ -11,7 +11,9 @@ public class ButtonMaster : MonoBehaviour
     [SerializeField] private RectTransform parentButton;
     [SerializeField] private GameObject[] buttons;
     [SerializeField] private RectTransform[] uiElements;
-    [Header("ŠÔŠu"),SerializeField,Range(0f,2f)] private float duration = 0.5f;
+    [Header("ŠÔŠu"), SerializeField, Range(0f, 2f)] private float duration = 0.5f;
+    [SerializeField] private AudioSource _AS;
+    [SerializeField] private AudioClip _AC;
     private float number = 0;
     private float n = 0;
     private bool change = false;
@@ -29,6 +31,7 @@ public class ButtonMaster : MonoBehaviour
     {
         if (!change)
         {
+            _AS.PlayOneShot(_AC);
             change = true;
             if (n % 2 == 0)
             {

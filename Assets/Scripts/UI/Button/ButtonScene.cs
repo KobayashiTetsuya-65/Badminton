@@ -10,6 +10,8 @@ public class ButtonScene : MonoBehaviour
     [SerializeField] private Image Fade;
     [SerializeField] string Scenename;
     [SerializeField] private float Fadespeed;
+    [SerializeField] private AudioSource _ASbuttonSE;
+    [SerializeField] private AudioClip _ACbuttonSE;
     private bool push = false;
     private float alpha;
     private bool increase;
@@ -54,6 +56,7 @@ public class ButtonScene : MonoBehaviour
     {
         push = true;
         _tr.DOShakeScale(0.3f,0.8f);
+        _ASbuttonSE.PlayOneShot(_ACbuttonSE);
         Debug.Log("‰Ÿ‚³‚ê‚½");
     }
     // Update is called once per frame
