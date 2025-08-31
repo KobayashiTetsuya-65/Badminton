@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _slimeBody;
     [SerializeField] private CharactorAnimationState _currentState;
     [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource _ASJump;
+    [SerializeField] private AudioClip _ACJump;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +62,7 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Jump") && !jumping)
             {
                 _currentState = CharactorAnimationState.Jump;
+                _ASJump.PlayOneShot(_ACJump);
                 velocity.y = Mathf.Sqrt(2f * gravity * jumpHeight);
                 jumping = true;
             }

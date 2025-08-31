@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
     private int maxPoint;
     [Header("セットカウント設定"), SerializeField, Range(1, 3)]
     private int maxSetPoint;
+    [Header("SE")]
+    [SerializeField] private AudioSource _ASGetPoint;
+    [SerializeField] private AudioClip _ACGetPoint;
+    [SerializeField] private AudioSource _ASLostPoint;
+    [SerializeField] private AudioClip _ACLostPoint;
     private bool reset = false;
     private bool markOnScene = false;
     private int pointP = 0;
@@ -89,6 +94,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GetPoint()
     {
+        _ASGetPoint.PlayOneShot(_ACGetPoint);
         pointP++;
         if (pointP >= maxPoint)
         {
@@ -110,6 +116,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LostPoint()
     {
+        _ASLostPoint.PlayOneShot(_ACLostPoint);
         pointE++;
         if (pointE >= maxPoint)
         {

@@ -7,6 +7,8 @@ public class Shuttle : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float gravity = 9.8f;
     [SerializeField] public float maxHeight;
+    [SerializeField] private AudioSource _ASHit;
+    [SerializeField] private AudioClip _ACHit;
     private float normalheight;
     private bool _setheight = false;
     private bool first = true;
@@ -40,6 +42,7 @@ public class Shuttle : MonoBehaviour
     {
         if (other.CompareTag("Racket") && !first && !drop)
         {
+            _ASHit.PlayOneShot(_ACHit);
             hit = true;
             receive = false;
             _enemy.ProbabilityCalculation();
@@ -76,6 +79,7 @@ public class Shuttle : MonoBehaviour
         }
         if (other.CompareTag("Enemy"))
         {
+            _ASHit.PlayOneShot(_ACHit);
             hit = false;
             drop = false;
             receive = true;
