@@ -11,6 +11,10 @@ public class Shuttle : MonoBehaviour
     [SerializeField] private AudioClip _ACHit;
     [SerializeField] private AudioSource _ASServe;
     [SerializeField] private AudioClip _ACServe;
+    [SerializeField] private AudioSource _ASSmash;
+    [SerializeField] private AudioClip _ACSmash;
+    [SerializeField] private ParticleSystem _smashEffect;
+    [SerializeField] private TrailRenderer _trailRenderer;
     private float normalheight;
     private bool _setheight = false;
     private bool first = true;
@@ -38,6 +42,7 @@ public class Shuttle : MonoBehaviour
         _tr = transform;
         first = true;
         normalheight = maxHeight;
+        _trailRenderer.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,16 +55,19 @@ public class Shuttle : MonoBehaviour
             _enemy.ProbabilityCalculation();
             _marker.MarkerSetting = false;
             Debug.Log("ヒット！");
+            _trailRenderer.enabled = true;
         }
         if (other.CompareTag("Net"))
         {
             velocity = Vector3.zero;
             hit = false;
             receive = false;
+            _trailRenderer.enabled = false;
         }
         if ((other.CompareTag("Out") || other.CompareTag("Floor")) && !restart)
         {
-            if(other.gameObject.layer == 7)//OUT
+            _trailRenderer.enabled = false;
+            if (other.gameObject.layer == 7)//OUT
             {
                 Collider targetCol = builder.floor.gameObject.GetComponent<Collider>();
                 Bounds b = targetCol.bounds;
@@ -88,6 +96,7 @@ public class Shuttle : MonoBehaviour
             _enemy.ChaseMode = false;
             _marker.MarkerSetting = true;
             Debug.Log("反撃");
+            _trailRenderer.enabled = true;
         }
     }
 
@@ -97,14 +106,17 @@ public class Shuttle : MonoBehaviour
         if (!first)
         {
             if (hit)//打ち返す
-            {
-                if (_player.jumping && !_setheight)
-                {
-                    HeightReset(1.5f);//スマッシュ
-                }
+            {  
                 randomset = false;
                 Vector3 direction = (mark.transform.position - _tr.position).normalized;
                 _tr.position += direction * speed * Time.deltaTime;
+                if (_player.jumping && !_setheight)
+                {
+                    HeightReset(1.5f);//スマッシュ
+                    _smashEffect.transform.rotation =Quaternion.LookRotation(-direction);
+                    _smashEffect.Play();
+                    _ASSmash.PlayOneShot(_ACSmash);
+                }
                 velocity.y = Mathf.Sqrt(2f * gravity * maxHeight);
             }
             velocity.y -= gravity * Time.deltaTime;

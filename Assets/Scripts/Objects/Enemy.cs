@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Enemy : MonoBehaviour
@@ -13,6 +14,8 @@ public class Enemy : MonoBehaviour
     [Header("Lv.1"), SerializeField] private float _successRate1 = 50f;
     [Header("Lv.2"), SerializeField] private float _successRate2 = 70f;
     [Header("Lv.3"), SerializeField] private float _successRate3 = 90f;
+    [SerializeField] private AudioClip _ACMiss;
+    [SerializeField] private AudioSource _ASMiss;
     private float _successRate;
     private float _randomRate;
     private float _maxRate = 100;
@@ -137,6 +140,16 @@ public class Enemy : MonoBehaviour
         {
             ChaseMode = true;
         }
+        else
+        {
+            StartCoroutine(DelaySE(0.3f));        
+            ChaseMode = false;
+        }
+    }
+    IEnumerator DelaySE(float delaytime)
+    {
+        yield return new WaitForSeconds(delaytime);
+        _ASMiss.PlayOneShot(_ACMiss);
     }
     private void OnAnimatorMove()
     {
