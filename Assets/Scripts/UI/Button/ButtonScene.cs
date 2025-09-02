@@ -21,7 +21,12 @@ public class ButtonScene : MonoBehaviour
         _tr = GetComponent<Transform>();
         push = false;
         Fadeset(0);
-        Debug.Log("a");
+        AudioManager.instance.RegisterSource(_ASbuttonSE);
+        _ASbuttonSE.volume = AudioManager.instance.MasterVolume;
+    }
+    private void OnDestroy()
+    {
+        AudioManager.instance.UnregisterSESource(_ASbuttonSE);
     }
     void Fadeset(float a)
     {

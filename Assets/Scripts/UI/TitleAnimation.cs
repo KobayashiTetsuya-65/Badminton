@@ -22,6 +22,12 @@ public class TitleAnimation : MonoBehaviour
         _random = 2f;
         _startPos = _shutle.transform.position;
         StartMove();
+        AudioManager.instance.RegisterSource(_AS);
+        _AS.volume = AudioManager.instance.MasterVolume;
+    }
+    private void OnDestroy()
+    {
+        AudioManager.instance.UnregisterSESource(_AS);
     }
     void StartMove()
     {

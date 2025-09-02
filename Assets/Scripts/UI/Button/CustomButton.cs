@@ -18,8 +18,13 @@ public class CustomButton : MonoBehaviour
         button.onClick.AddListener(osu);
         enemy = FindObjectOfType<Enemy>();
         _markerMat.color = new Color(1, 0.6f, 0.7f, 0.4f);
+        AudioManager.instance.RegisterSource(_AS);
+        _AS.volume = AudioManager.instance.MasterVolume;
     }
-
+    private void OnDestroy()
+    {
+        AudioManager.instance.UnregisterSESource(_AS);
+    }
     private void osu()
     {
         _AS.PlayOneShot(_AC);

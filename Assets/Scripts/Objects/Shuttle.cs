@@ -46,8 +46,19 @@ public class Shuttle : MonoBehaviour
         first = true;
         normalheight = maxHeight;
         _trailRenderer.enabled = false;
+        AudioManager.instance.RegisterSource(_ASHit);
+        AudioManager.instance.RegisterSource(_ASServe);
+        AudioManager.instance.RegisterSource(_ASSmash);
+        _ASHit.volume = AudioManager.instance.MasterVolume;
+        _ASServe.volume = AudioManager.instance.MasterVolume;
+        _ASSmash.volume = AudioManager.instance.MasterVolume;
     }
-
+    private void OnDestroy()
+    {
+        AudioManager.instance.UnregisterSESource(_ASHit);
+        AudioManager.instance.UnregisterSESource(_ASServe);
+        AudioManager.instance.UnregisterSESource(_ASSmash);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Racket") && !first && !drop)

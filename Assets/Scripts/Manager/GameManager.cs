@@ -1,7 +1,9 @@
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using DG.Tweening;
+using static Unity.VisualScripting.Member;
+[RequireComponent(typeof(AudioSource))]
 /// <summary>
 /// ìGÇÃíeÇÃóéâ∫ínì_&ìæì_ä«óù
 /// </summary>
@@ -48,8 +50,20 @@ public class GameManager : MonoBehaviour
         winText.SetActive(false);
         loseText.SetActive(false);
         _panelImage.DOFade(0f, 1f);
+        AudioManager.instance.RegisterSource(_ASGetPoint);
+        AudioManager.instance.RegisterSource(_ASLostPoint);
+        AudioManager.instance.RegisterSource(_ASFinish);
+        _ASGetPoint.volume = AudioManager.instance.MasterVolume;
+        _ASLostPoint.volume = AudioManager.instance.MasterVolume;
+        _ASFinish.volume = AudioManager.instance.MasterVolume;
     }
+    private void OnDestroy()
+    {
+        AudioManager.instance.UnregisterSESource(_ASGetPoint);
+        AudioManager.instance.UnregisterSESource(_ASLostPoint);
+        AudioManager.instance.UnregisterSESource(_ASFinish);
 
+    }
     // Update is called once per frame
     void Update()
     {

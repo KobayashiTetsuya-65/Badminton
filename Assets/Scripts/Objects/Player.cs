@@ -27,8 +27,13 @@ public class Player : MonoBehaviour
         _tr = transform;
         _currentState = CharactorAnimationState.Idle;
         Setup();
+        AudioManager.instance.RegisterSource(_ASJump);
+        _ASJump.volume = AudioManager.instance.MasterVolume;
     }
-
+    private void OnDestroy()
+    {
+        AudioManager.instance.UnregisterSESource(_ASJump);
+    }
     // Update is called once per frame
     void Update()
     {

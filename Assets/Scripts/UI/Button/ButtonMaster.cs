@@ -22,7 +22,12 @@ public class ButtonMaster : MonoBehaviour
         {
             btn.SetActive(false);
         }
-
+        AudioManager.instance.RegisterSource(_AS);
+        _AS.volume = AudioManager.instance.MasterVolume;
+    }
+    private void OnDestroy()
+    {
+        AudioManager.instance.UnregisterSESource(_AS);
     }
     private void osu()
     {

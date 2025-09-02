@@ -33,8 +33,13 @@ public class Enemy : MonoBehaviour
         _tr = GetComponent<Transform>();
         _tr.position = new Vector3(0f, 1f, 5f);
         ChaseMode = false;
+        AudioManager.instance.RegisterSource(_ASMiss);
+        _ASMiss.volume = AudioManager.instance.MasterVolume;
     }
-
+    private void OnDestroy()
+    {
+        AudioManager.instance.UnregisterSESource(_ASMiss);
+    }
     // Update is called once per frame
     void Update()
     {
