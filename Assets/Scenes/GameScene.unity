@@ -2970,7 +2970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &969598465
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3909,7 +3909,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CPU Lv
+  m_Text: CPU Lv.
 --- !u!222 &1144403636
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4528,10 +4528,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Title
+  m_text: "\u623B\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9b549a7b660ff4b4fbbaa83eeaad9a70, type: 2}
+  m_sharedMaterial: {fileID: 4127285920614429508, guid: 9b549a7b660ff4b4fbbaa83eeaad9a70, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     public float MasterVolume { get; private set; } = 1f;
     [SerializeField] AudioSource _ASBgm;
     [SerializeField] private List<AudioSource> _audioSources = new List<AudioSource>();
+    public int Point = 7;
     private void Awake()
     {
         if (instance == null)
@@ -18,10 +19,6 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    private void Update()
-    {
-        Debug.Log(_audioSources.Count);
     }
     /// <summary>
     /// AudioSource‚ðList‚É’Ç‰Á

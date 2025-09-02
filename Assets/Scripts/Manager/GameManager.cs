@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
         _ASGetPoint.volume = AudioManager.instance.MasterVolume;
         _ASLostPoint.volume = AudioManager.instance.MasterVolume;
         _ASFinish.volume = AudioManager.instance.MasterVolume;
+        maxPoint = AudioManager.instance.Point;
+        Debug.Log(maxPoint);
     }
     private void OnDestroy()
     {
