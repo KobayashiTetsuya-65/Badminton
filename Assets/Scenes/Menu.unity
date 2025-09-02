@@ -354,6 +354,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 4059194}
+  _others:
+  - {fileID: 1895809584}
+  - {fileID: 1098498384}
   _AS: {fileID: 4059197}
   _AC: {fileID: 8300000, guid: 2b111e6ead9947e4684d890d17dcbe33, type: 3}
   _point: 15
@@ -2163,6 +2166,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1098498384}
+  _others:
+  - {fileID: 1895809584}
+  - {fileID: 4059194}
   _AS: {fileID: 1098498387}
   _AC: {fileID: 8300000, guid: 2b111e6ead9947e4684d890d17dcbe33, type: 3}
   _point: 21
@@ -3741,6 +3747,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1895809584}
+  _others:
+  - {fileID: 4059194}
+  - {fileID: 1098498384}
   _AS: {fileID: 1895809587}
   _AC: {fileID: 8300000, guid: 2b111e6ead9947e4684d890d17dcbe33, type: 3}
   _point: 7
@@ -3761,7 +3770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1932090527
 RectTransform:
   m_ObjectHideFlags: 0
