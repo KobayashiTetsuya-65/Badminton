@@ -725,6 +725,7 @@ MonoBehaviour:
   _level: {fileID: 349904150}
   _AS: {fileID: 300322012}
   _AC: {fileID: 8300000, guid: 2b111e6ead9947e4684d890d17dcbe33, type: 3}
+  _markerMat: {fileID: 2100000, guid: 0a302c8cb8cc56540a15dd2d59cd4266, type: 2}
 --- !u!82 &300322012
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1167,6 +1168,7 @@ MonoBehaviour:
   _level: {fileID: 349904150}
   _AS: {fileID: 355210852}
   _AC: {fileID: 8300000, guid: 2b111e6ead9947e4684d890d17dcbe33, type: 3}
+  _markerMat: {fileID: 2100000, guid: 0a302c8cb8cc56540a15dd2d59cd4266, type: 2}
 --- !u!82 &355210852
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1482,6 +1484,7 @@ MonoBehaviour:
   _level: {fileID: 349904150}
   _AS: {fileID: 435066997}
   _AC: {fileID: 8300000, guid: 2b111e6ead9947e4684d890d17dcbe33, type: 3}
+  _markerMat: {fileID: 2100000, guid: 0a302c8cb8cc56540a15dd2d59cd4266, type: 2}
 --- !u!82 &435066997
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3433,6 +3436,7 @@ MonoBehaviour:
   _trailRenderer: {fileID: 1042751589}
   hit: 0
   receive: 0
+  restop: 0
   randomPos: {x: 0, y: 0, z: 0}
 --- !u!82 &1042751587
 AudioSource:

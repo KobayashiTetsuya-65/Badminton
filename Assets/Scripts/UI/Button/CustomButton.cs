@@ -9,13 +9,15 @@ public class CustomButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _level;
     [SerializeField] private AudioSource _AS;
     [SerializeField] private AudioClip _AC;
-    
+    [SerializeField] private Material _markerMat;
+
     Enemy enemy;
     // Start is called before the first frame update
     void Start()
     {
         button.onClick.AddListener(osu);
         enemy = FindObjectOfType<Enemy>();
+        _markerMat.color = new Color(1, 0.6f, 0.7f, 0.4f);
     }
 
     private void osu()
@@ -23,7 +25,15 @@ public class CustomButton : MonoBehaviour
         _AS.PlayOneShot(_AC);
         enemy._Lv = number;
         _level.text = (number + 1).ToString();
-        Debug.Log("ìÔà’ìxí≤êÆ");
+        if(number == 2)
+        {
+            _markerMat.color = new Color(0, 0, 0, 0);
+        }
+        else
+        {
+            _markerMat.color = new Color(1, 0.6f, 0.7f, 0.4f);
+        }
+            Debug.Log("ìÔà’ìxí≤êÆ");
     }
     // Update is called once per frame
     void Update()
