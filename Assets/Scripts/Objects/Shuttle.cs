@@ -212,7 +212,7 @@ public class Shuttle : MonoBehaviour
         hit = false;
         receive = false;
         restart = true;
-        velocity = new Vector3(0,velocity.y,0);
+        velocity = new Vector3(0,0,0);
     }
     /// <summary>
     /// IN‚Ìˆ—
