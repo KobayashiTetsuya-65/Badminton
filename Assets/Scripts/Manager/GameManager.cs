@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GetPoint()
     {
+        shuttle.restop = true;
         _ASGetPoint.PlayOneShot(_ACGetPoint);
         pointP++;
         if (pointP >= maxPoint)
@@ -119,6 +120,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LostPoint()
     {
+        shuttle.restop = true;
         _ASLostPoint.PlayOneShot(_ACLostPoint);
         pointE++;
         if (pointE >= maxPoint)

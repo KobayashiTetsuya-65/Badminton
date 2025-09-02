@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Shuttle : MonoBehaviour
@@ -23,6 +24,8 @@ public class Shuttle : MonoBehaviour
     private bool drop = false;
     public bool hit = false;//Ž©•ª‚ª’µ‚Ë•Ô‚·Žž
     public bool receive = false;//“G‚ª’µ‚Ë•Ô‚·Žž
+    public bool restop = false;
+    private bool interval = false;
     private Vector3 velocity;
     public Vector3 randomPos;
     CourtBuilder builder;
@@ -146,13 +149,24 @@ public class Shuttle : MonoBehaviour
                 hit = false;
                 receive = false;
             }
+            if (restop)
+            {
+                if (Input.GetKeyDown(KeyCode.Q) && !interval)
+                {
+                    Serve();
+                    _player.playerMove = true;
+                    restop = false;
+                    StartCoroutine(CoolTime(1));
+                }
+            }
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q) && !interval)
             {
                 Serve();
                 _player.playerMove = true;
+                StartCoroutine(CoolTime(1));
             }
         }
         
@@ -236,5 +250,11 @@ public class Shuttle : MonoBehaviour
     {
         maxHeight = Height;
         _setheight = true;
+    }
+    IEnumerator CoolTime(float seconds)
+    {
+        interval = true;
+        yield return new WaitForSeconds(seconds);
+        interval = false;
     }
 }

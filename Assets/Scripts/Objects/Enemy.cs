@@ -150,6 +150,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(delaytime);
         _ASMiss.PlayOneShot(_ACMiss);
+        
     }
     private void OnAnimatorMove()
     {
