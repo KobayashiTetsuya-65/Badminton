@@ -89,6 +89,10 @@ public class Shuttle : MonoBehaviour
             {
                 HitLayer();
             }
+            else
+            {
+                Debug.Log("error");
+            }
         }
         if (other.CompareTag("Enemy"))
         {
@@ -124,7 +128,7 @@ public class Shuttle : MonoBehaviour
             }
             velocity.y -= gravity * Time.deltaTime;
             _tr.position += new Vector3(0f, velocity.y * Time.deltaTime, 0f);
-            if (_tr.position.y <= 0.010f)//シャトルの接地判定
+            if (_tr.position.y <= 0.01f)//シャトルの接地判定
             {
                 _tr.position = new Vector3(_tr.position.x, 0f, _tr.position.z);
                 velocity.y = 0f;
@@ -208,7 +212,7 @@ public class Shuttle : MonoBehaviour
         hit = false;
         receive = false;
         restart = true;
-        velocity = Vector3.zero;
+        velocity = new Vector3(0,velocity.y,0);
     }
     /// <summary>
     /// INの処理
