@@ -57,7 +57,7 @@ public class TitleAnimation : MonoBehaviour
         .OnComplete(() =>
         {
             _AS.PlayOneShot(_AC);
-            _tr.DOPunchScale(new Vector3(1, -1, 0), 1f);
+            _tr.DOPunchScale(new Vector3(1.3f, -1.5f, 0), 1f);
             _shutle.transform.position = _startPos;
             _shutle.transform.rotation = Quaternion.identity;
             StartMove();
