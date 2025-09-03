@@ -82,9 +82,4 @@ public class ButtonMaster : MonoBehaviour
             btn.SetActive(false);
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
