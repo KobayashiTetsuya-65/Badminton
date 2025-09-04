@@ -30,14 +30,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip _ACLostPoint;
     [SerializeField] private AudioSource _ASFinish;
     [SerializeField] private AudioClip _ACFinish;
+    [Header("ƒpƒlƒ‹")]
+    [SerializeField] private GameObject _opetationPanel;
+    [SerializeField] private GameObject _rulePanel;
     private bool reset = false;
     private bool markOnScene = false;
     private int pointP = 0;
     private int pointE = 0;
     private int setPP = 0;
     private int setPE = 0;
+    private int _mode = 0;
     private GameObject currentMaker;
-    Shuttle shuttle;
+    private Shuttle shuttle;
     //Enemy enemy;
     // Start is called before the first frame update
     void Start()
@@ -58,6 +62,8 @@ public class GameManager : MonoBehaviour
         _ASFinish.volume = AudioManager.instance.MasterVolume;
         maxPoint = AudioManager.instance.Point;
         Debug.Log(maxPoint);
+        _opetationPanel.SetActive(false);
+        _rulePanel.SetActive(false);
     }
     private void OnDestroy()
     {
@@ -95,6 +101,24 @@ public class GameManager : MonoBehaviour
             winText.SetActive(false);
             loseText.SetActive(false);
             PointUPdate();
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            switch (_mode)
+            {
+                case 0:
+                    _opetationPanel.SetActive(true);
+                    break;
+                case 1:
+                    _opetationPanel.SetActive(false);
+                    _rulePanel.SetActive(true);
+                    break;
+                case 2:
+                    _rulePanel.SetActive(false);
+                    _mode = -1;
+                    break;
+            }
+            _mode++;
         }
     }
     /// <summary>
