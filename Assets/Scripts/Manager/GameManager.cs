@@ -135,8 +135,7 @@ public class GameManager : MonoBehaviour
     /// ポイント取得
     /// </summary>
     public void GetPoint()
-    {
-        shuttle.restop = true;
+    {  
         _ASGetPoint.PlayOneShot(_ACGetPoint);
         pointP++;
         if (pointP >= maxPoint)
@@ -154,13 +153,13 @@ public class GameManager : MonoBehaviour
             }
         }
         PointUPdate();
+        shuttle.restop = true;
     }
     /// <summary>
     /// ポイント取られた
     /// </summary>
     public void LostPoint()
     {
-        shuttle.restop = true;
         _ASLostPoint.PlayOneShot(_ACLostPoint);
         pointE++;
         if (pointE >= maxPoint)
@@ -178,5 +177,6 @@ public class GameManager : MonoBehaviour
             }
         }
         PointUPdate();
+        shuttle.restop = true;
     }
 }
