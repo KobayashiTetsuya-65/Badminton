@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     [Header("パネル")]
     [SerializeField] private GameObject _opetationPanel;
     [SerializeField] private GameObject _rulePanel;
+    [Header("観客")]
+    [SerializeField] private Animator[] _animators;
     private bool reset = false;
     private bool markOnScene = false;
     private int pointP = 0;
@@ -136,6 +138,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GetPoint()
     {  
+        foreach(var audience in _animators)
+        {
+            audience.SetTrigger("Jump");
+        }
         _ASGetPoint.PlayOneShot(_ACGetPoint);
         pointP++;
         if (pointP >= maxPoint)
@@ -160,6 +166,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LostPoint()
     {
+        foreach (var audience in _animators)
+        {
+            audience.SetTrigger("Damage");
+        }
         _ASLostPoint.PlayOneShot(_ACLostPoint);
         pointE++;
         if (pointE >= maxPoint)
@@ -178,5 +188,14 @@ public class GameManager : MonoBehaviour
         }
         PointUPdate();
         shuttle.restop = true;
+    }
+    private void OnAnimatorMove()
+    {
+
+    }
+    private void AlertObservers(string message)
+    {
+        Debug.Log($"AnimationEvent: {message}");
+        // 必要ならここで処理を書く
     }
 }
