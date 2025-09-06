@@ -3669,6 +3669,7 @@ GameObject:
   - component: {fileID: 969598465}
   - component: {fileID: 969598467}
   - component: {fileID: 969598466}
+  - component: {fileID: 969598468}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -3733,6 +3734,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 969598464}
   m_CullTransparentMesh: 1
+--- !u!114 &969598468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969598464}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccaf8916ea5dfdd459e984546d4e0889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _panel: {fileID: 969598466}
 --- !u!1 &973517820 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2795397902362475942, guid: 72c47fdc43d84b243bdc109c284341d6, type: 3}
@@ -7202,7 +7216,6 @@ MonoBehaviour:
   setpointTextE: {fileID: 266306619}
   winText: {fileID: 954783050}
   loseText: {fileID: 2039606641}
-  _panelImage: {fileID: 969598466}
   maxPoint: 7
   maxSetPoint: 2
   _ASGetPoint: {fileID: 2012020678}

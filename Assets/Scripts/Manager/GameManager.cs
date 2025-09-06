@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI setpointTextE;
     [SerializeField] private GameObject winText;
     [SerializeField] private GameObject loseText;
-    [SerializeField] private Image _panelImage;
     [Header("ポイント設定"), SerializeField, Range(1, 21)]
     private int maxPoint;
     [Header("セットカウント設定"), SerializeField, Range(1, 3)]
@@ -55,7 +54,6 @@ public class GameManager : MonoBehaviour
         PointUPdate();
         winText.SetActive(false);
         loseText.SetActive(false);
-        _panelImage.DOFade(0f, 1f);
         AudioManager.instance.RegisterSource(_ASGetPoint);
         AudioManager.instance.RegisterSource(_ASLostPoint);
         AudioManager.instance.RegisterSource(_ASFinish);
